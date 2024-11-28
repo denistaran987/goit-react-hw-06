@@ -1,7 +1,11 @@
 import { useId } from 'react';
 import s from '../SearchBox/SearchBox.module.css';
-const SearchBox = ({ search, setSearch }) => {
+import { useDispatch } from 'react-redux';
+import { changeFilter } from '../../redux/filtersSlice';
+
+const SearchBox = () => {
   const findId = useId();
+  const dispatch = useDispatch();
 
   return (
     <div className={s.container}>
@@ -12,9 +16,9 @@ const SearchBox = ({ search, setSearch }) => {
         className={s.field}
         type="text"
         id={findId}
-        value={search}
         onChange={e => {
-          setSearch(e.target.value);
+          const value = e.target.value.toLowerCase();
+          dispatch(changeFilter(value));
         }}
       />
     </div>
